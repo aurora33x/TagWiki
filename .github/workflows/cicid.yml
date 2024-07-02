@@ -34,5 +34,5 @@ jobs:
 
       - name: Run Docker Container
 
-        run: docker run -d -p 3001:80 --name reactjs-app-container hazell3/tagwikifrontend
+        run: docker run -d -p 3000:80 --name reactjs-app-container hazell3/tagwikifrontend
 
