@@ -17,7 +17,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
 
   const user = useContext(UserContext);
-
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   function login() {
     const data = { username, password };
     if (!isHuman) {
@@ -26,7 +26,7 @@ function LoginPage() {
     else {
       if (!username) return message.error('please enter username');
       if (!password) return message.error('please enter password');
-      axios.post("/api/auth/login", data).then(() => {
+      axios.post(`${base_url}api/auth/login`, data).then(() => {
         user.setToken(Cookies.get('token'));
         navigate("/");
       }).catch(() => {

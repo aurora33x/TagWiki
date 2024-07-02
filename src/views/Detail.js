@@ -37,7 +37,7 @@ function Detail(_props) {
 
 
 
-
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   const getUrlParam = function (name) {
     var suffix = window.location.search.substr(1);
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -45,7 +45,7 @@ function Detail(_props) {
   }
 
   const getData = () => {
-    axios.get("/api/comment/commentMsg?id=" + getUrlParam('id'), {}, { withCredentials: true })
+    axios.get(`${base_url}/api/comment/commentMsg?id=` + getUrlParam('id'), {}, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           setDetail(res.data.data)
@@ -59,7 +59,7 @@ function Detail(_props) {
   }
 
   const getTree = () => {
-    axios.get("/api/comment/userComment?allId=" + getUrlParam('id'), {}, { withCredentials: true })
+    axios.get(`${base_url}/api/comment/userComment?allId=` + getUrlParam('id'), {}, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           setUserCom(res.data.data);
@@ -71,7 +71,7 @@ function Detail(_props) {
   }
 
   const deletePost = () => {
-    axios.post('/api/comment/commentMsg/delete', {
+    axios.post(`${base_url}/api/comment/commentMsg/delete`, {
       id: detail._id
     }, { withCredentials: true }).then(res => {
       if (res.data.success) {
@@ -102,7 +102,7 @@ function Detail(_props) {
 
   const getLike = () => {
     console.log('search userinfo=====>');
-    let url = "/api/vote/userVote?postId=" + getUrlParam('id');
+    let url = `${base_url}/api/vote/userVote?postId=` + getUrlParam('id');
     if (userInfo && userInfo.userId) {
       url += '&userId=' + userInfo.userId;
     }
@@ -123,7 +123,7 @@ function Detail(_props) {
     if (!userInfo.userName) return message.error('please login!');
     if (isLike === true) {
 
-      axios.post("/api/vote/userVote", {
+      axios.post(`${base_url}/api/vote/userVote`, {
         postId: getUrlParam('id'),
         type: 0,
       }, { withCredentials: true })
@@ -139,7 +139,7 @@ function Detail(_props) {
         });
     } else {
 
-      axios.post("/api/vote/userVote", {
+      axios.post(`${base_url}/api/vote/userVote`, {
         postId: getUrlParam('id'),
         type: 1,
       }, { withCredentials: true })

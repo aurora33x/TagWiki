@@ -20,7 +20,7 @@ function CommunityPage() {
   const { communityId } = useParams();
   const [visible, setVisible] = useState(false);
   const [init, setInit] = useState(0);
-
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   const user = useContext(UserContext);
 
   const joinCommunity = useJoinCommunity();
@@ -31,7 +31,7 @@ function CommunityPage() {
 
     async function fetchData() {
       setLoading(true);
-      const response = await axios.get(`/api/community/${communityId}`);
+      const response = await axios.get(`${base_url}/api/community/${communityId}`);
       setData(response.data);
       setLoading(false);
     }

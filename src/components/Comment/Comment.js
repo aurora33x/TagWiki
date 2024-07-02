@@ -8,10 +8,11 @@ function Comment(props) {
   const [comment, setComment] = useState({});
   const [comments, setComments] = useState([]);
   const [commentsTotals, setCommentsTotals] = useState(null);
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 
 
   function refreshComments() {
-    axios.get('/api/comment/comments/root/' + props.id)
+    axios.get(`${base_url}/api/comment/comments/root/` + props.id)
       .then(response => {
         setComments(response.data);
       });
@@ -22,7 +23,7 @@ function Comment(props) {
     if (props.comment) {
       setComment(props.comment);
     } else {
-      axios.get("/api/comment/comments/" + props.id)
+      axios.get(`${base_url}/api/comment/comments/` + props.id)
         .then(response => {
           setComment(response.data);
         });

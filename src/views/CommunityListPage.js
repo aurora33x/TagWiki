@@ -14,10 +14,11 @@ export default function CommunityListPage() {
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [init, setInit] = useState(0);
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const response = await axios.get("/api/community/");
+      const response = await axios.get(`${base_url}/api/community/`);
       setData(response.data);
       setLoading(false);
     }

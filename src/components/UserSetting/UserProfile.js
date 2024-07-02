@@ -16,12 +16,12 @@ export default function Userprofile() {
   const [email, setEmail] = useState("");
   const [newusername, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   const user = useContext(UserContext);
   function userSetting(e) {
     const username = user.userName;
     const data = { username, email, newusername, password };
-    axios.post("/api/userSetting/user/userProfile", data).then(() => {
+    axios.post(`${base_url}/api/userSetting/user/userProfile", data`).then(() => {
       user.setToken(Cookies.get('token'));
       console.log(data);
       e.preventDefault();

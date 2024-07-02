@@ -4,7 +4,7 @@ import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '../Avatar';
-
+const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -125,7 +125,7 @@ function CreateCommunity() {
       "avatar": avatar
     }
     console.log(data);
-    await axios.post("/api/community/create", data).then((res) => {
+    await axios.post(`${base_url}/api/community/create`, data).then((res) => {
       setVisible(false);
       const url = res.headers["location"];
       navigate(url, { replace: true });

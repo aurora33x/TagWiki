@@ -33,7 +33,7 @@ function PostFormModal(props) {
   const [keywords, setKeywords] = useState(props.detail ? props.detail.keywords : '');
   const [reference, setReference] = useState(props.detail ? props.detail.reference : '');
   const [community, setCommunity] = useState(props.detail ? props.detail.community : '');
-
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   function createPost() {
     if (!isHuman) {return message.error("Your interaction doesn't look like a human")} else {
     if (!title) return message.error('Please enter title');
@@ -43,7 +43,7 @@ function PostFormModal(props) {
 
       "body": body, "keywords": keywords, "reference": reference, "community": community
     };
-    axios.post("/api/comment/comments", data, { withCredentials: true })
+    axios.post(`${base_url}/api/comment/comments`, data, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           if (res.data.data.code === '401') return message.error(res.data.data.msg);
@@ -71,7 +71,7 @@ function PostFormModal(props) {
   }, [userId]);
 
   async function getMyCommunities() {
-    return axios.get(`/api/community?userId=${userId}`, { withCredentials: true })
+    return axios.get(`${base_url}/api/community?userId=${userId}`, { withCredentials: true })
       .then(res => {
         if (res.status === 200 && res.data.length !== 0) {
           return res.data;
@@ -97,7 +97,7 @@ function PostFormModal(props) {
 
       "body": body, "keywords": keywords, "reference": reference, "community": community
     };
-    axios.post("/api/comment/commentMsg/edit", data, { withCredentials: true })
+    axios.post(`${base_url}/api/comment/commentMsg/edit`, data, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           if (res.data.data.code === '401') return message.error(res.data.data.msg);

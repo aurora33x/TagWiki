@@ -10,6 +10,7 @@ const TreeDom = (props) => {
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState('');
   const [parentID, setParentID] = useState('');
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 
   useEffect(() => {
     if (props.userCom) {
@@ -19,7 +20,7 @@ const TreeDom = (props) => {
 
   const handleSubmit = () => {
     if (!name) return message.error('Please enter comment');
-    axios.post('/api/comment/comments', {
+    axios.post(`${base_url}/api/comment/comments`, {
       body: name,
       parentId: parentID,
       rootId: props.id,

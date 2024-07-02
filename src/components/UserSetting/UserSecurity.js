@@ -19,7 +19,7 @@ export default function Usersecurity() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
-
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 
   const user = useContext(UserContext);
   function UpdateUserSetting(e) {
@@ -28,7 +28,7 @@ export default function Usersecurity() {
     } else {
       const username = user.userName;
       const data = { username, password, oldPassword };
-      axios.post("/api/userSetting/user/userSecurity", data).then((res) => {
+      axios.post(`${base_url}/api/userSetting/user/userSecurity`, data).then((res) => {
         user.setToken(Cookies.get('token'));
         e.preventDefault();
         user.setToken(undefined);

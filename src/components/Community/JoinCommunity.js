@@ -5,6 +5,7 @@ import UserContext from '../UserContext';
 
 export default function useJoinCommunity() {
   const { userId } = useContext(UserContext);
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 
   const joinCommunity = async (communityId) => {
     if (!userId) {
@@ -16,7 +17,7 @@ export default function useJoinCommunity() {
       console.log('Sending join request:', { communityId, userId });
 
       // Check if the user is already a member
-      const response = await axios.get(`/api/community/${communityId}/members`);
+      const response = await axios.get(`${base_url}/api/community/${communityId}/members`);
       const members = response.data.members;
       const isMember = members.some(member => member.id === userId);
 
@@ -26,7 +27,7 @@ export default function useJoinCommunity() {
       }
 
       // If not a member, send the join request
-      await axios.post("/api/community/join", { communityId, userId });
+      await axios.post(`${base_url}/api/community/join`, { communityId, userId });
       message.success('Joined successfully!');
     } catch (error) {
       console.error('Join request failed:', error.response || error.message);

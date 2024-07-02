@@ -29,9 +29,10 @@ function HomepageTrending(props) {
   const [title3, setTitle03] = useState();
   const [descrip3, setDescrip03] = useState();
   const scrollID03 = "668147facad7075920c5a908";
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 
   const fetchData = (type) => {
-    axios.get("/api/comment/commentMsg", {}, { withCredentials: true })
+    axios.get(`${base_url}/api/comment/commentMsg`, {}, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           const bannerRes = res.data.data.filter((item, index) => index <= 2);

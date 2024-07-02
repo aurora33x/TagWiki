@@ -17,16 +17,16 @@ function SignupPage() {
   const [password, setPassword] = useState("");
 
   const user = useContext(UserContext);
-
+  const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   function register(e) {
     e.preventDefault();
     const data = { email, username, password };
     axios
-      .post("/api/auth/register", data, {
+      .post(`${base_url}/api/auth/register`, data, {
         withCredentials: true,
       })
       .then(() => {
-        axios.post("/api/auth/login", { username, password }).then(() => {
+        axios.post(`${base_url}/api/auth/login`, { username, password }).then(() => {
           user.setToken(Cookies.get('token'));
           navigate("/");
         });

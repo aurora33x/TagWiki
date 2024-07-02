@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import MockAdapter from 'axios-mock-adapter';
 jest.mock('js-cookie')
 describe('Login page test', () => {
-
+    const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
     let axiosMock;
     beforeAll(() => {
         axiosMock = new MockAdapter(axios);
@@ -21,7 +21,7 @@ describe('Login page test', () => {
         Cookies.get.mockReturnValue('myjwtaccesstoken')
         console.log(Cookies.get)
 
-        axiosMock.onPost('/api/auth/login').reply(200, { 'accessToken': 'myjwtaccesstoken' })
+        axiosMock.onPost(`${base_url}/api/auth/login`).reply(200, { 'accessToken': 'myjwtaccesstoken' })
         const mockSetToken = jest.fn();
 
         const { queryByText, getByPlaceholderText } = render(<MemoryRouter initialEntries={['/login']}>
