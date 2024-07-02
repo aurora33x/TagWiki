@@ -5,7 +5,7 @@ FROM node:16.20.2 AS build
 ARG REACT_APP_NODE_ENV
 ARG REACT_APP_SERVER_BASE_URL
 
-# Set default values for env variables
+# Set default values for envt variables
 ENV REACT_APP_NODE_ENV=$REACT_APP_NODE_ENV
 ENV REACT_APP_SERVER_BASE_URL=$REACT_APP_SERVER_BASE_URL
 
