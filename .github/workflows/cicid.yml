@@ -33,8 +33,6 @@ jobs:
           docker ps -a -q --filter "name=reactjs-app-container" | grep -q . && docker rm -f reactjs-app-container || echo "No container found"
 
       - name: Run Docker Container
-<<<<<<< HEAD
+
         run: docker run -d -p 3001:80 --name reactjs-app-container hazell3/tagwikifrontend
-=======
-        run: docker run -d -p 3000:80 --name reactjs-app-container hazell3/tagwikifrontend:latest
->>>>>>> 732f64f9cbc1bd275719e53baf3bc60d9ee35d16
+
