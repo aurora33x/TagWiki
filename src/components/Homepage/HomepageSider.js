@@ -5,14 +5,14 @@ import { React, useContext } from "react";
 import { Link } from "react-router-dom";
 import useJoinCommunity from '../Community/JoinCommunity';
 import UserContext from "../UserContext";
-
+const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 
 const data = [
-  { _id: "668144bdcad7075920c5a830", title: "Penguin", avatar: "/images/1.JPG" },
-  { _id: "668144e3cad7075920c5a84e", title: "Lion", avatar: "/images/2.JPG" },
-  { _id: "668144fccad7075920c5a85e", title: "Crocodile", avatar: "/images/3.JPG" },
-  { _id: "66814513cad7075920c5a86e", title: "Cat", avatar: "/images/4.JPG" },
-  { _id: "66814527cad7075920c5a87c", title: "Bear", avatar: "/images/5.JPG" },
+  { _id: "668144bdcad7075920c5a830", title: "Penguin", avatar: `${base_url}/images/1.JPG` },
+  { _id: "668144e3cad7075920c5a84e", title: "Lion", avatar: `${base_url}/images/2.JPG` },
+  { _id: "668144fccad7075920c5a85e", title: "Crocodile", avatar: `${base_url}/images/3.JPG` },
+  { _id: "66814513cad7075920c5a86e", title: "Cat", avatar: `${base_url}/images/4.JPG` },
+  { _id: "66814527cad7075920c5a87c", title: "Bear", avatar: `${base_url}/images/5.JPG` },
 ];
 
 function HomepageSider(props) {
