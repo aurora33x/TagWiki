@@ -86,7 +86,7 @@ export default function CommunityListPage() {
                             xxl: 40,
                           }}
                           alt="Avatar"
-                          src={item.avatar}
+                          src={`${base_url}/images/${item.avatar}`}
 
                         />
                       </Card>

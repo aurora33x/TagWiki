@@ -65,7 +65,6 @@ function HomepageHot(props) {
             <Meta
               title={
                 <a style={{ color: "black" }}>
-                  <Avatar src="https://joeschmoe.io/api/v1/random" />
                   {item.title} - Written by {item.author}
                 </a>
               }
