@@ -21,7 +21,7 @@ describe('Login page test', () => {
         Cookies.get.mockReturnValue('myjwtaccesstoken')
         console.log(Cookies.get)
 
-        axiosMock.onPost(`${base_url}/api/auth/login`).reply(200, { 'accessToken': 'myjwtaccesstoken' })
+        axiosMock.onPost(`${base_url}/auth/login`).reply(200, { 'accessToken': 'myjwtaccesstoken' })
         const mockSetToken = jest.fn();
 
         const { queryByText, getByPlaceholderText } = render(<MemoryRouter initialEntries={['/login']}>

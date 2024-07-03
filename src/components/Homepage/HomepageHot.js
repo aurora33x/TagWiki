@@ -18,7 +18,7 @@ function HomepageHot(props) {
 
 
   const fetchData = () => {
-    axios.get(`${base_url}/api/comment/commentMsg`, {}, { withCredentials: true })
+    axios.get(`${base_url}/comment/commentMsg`, {}, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           const bannerRes = res.data.data;

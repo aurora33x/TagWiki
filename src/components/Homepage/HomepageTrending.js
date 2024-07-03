@@ -32,7 +32,7 @@ function HomepageTrending(props) {
   const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 
   const fetchData = (type) => {
-    axios.get(`${base_url}/api/comment/commentMsg`, {}, { withCredentials: true })
+    axios.get(`${base_url}/comment/commentMsg`, {}, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           const bannerRes = res.data.data.filter((item, index) => index <= 2);

@@ -26,7 +26,7 @@ function LoginPage() {
       if (!username) return message.error('Please enter username');
       if (!password) return message.error('Please enter password');
   
-      axios.post(`${base_url}api/auth/login`, data)
+      axios.post(`${base_url}/auth/login`, data)
         .then(() => {
           user.setToken(Cookies.get('token'));; // Assuming token is returned in response
           navigate("/");

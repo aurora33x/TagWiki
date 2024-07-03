@@ -43,7 +43,7 @@ function PostFormModal(props) {
 
       "body": body, "keywords": keywords, "reference": reference, "community": community
     };
-    axios.post(`${base_url}/api/comment/comments`, data, { withCredentials: true })
+    axios.post(`${base_url}/comment/comments`, data, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           if (res.data.data.code === '401') return message.error(res.data.data.msg);
@@ -71,7 +71,7 @@ function PostFormModal(props) {
   }, [userId]);
 
   async function getMyCommunities() {
-    return axios.get(`${base_url}/api/community?userId=${userId}`, { withCredentials: true })
+    return axios.get(`${base_url}/community?userId=${userId}`, { withCredentials: true })
       .then(res => {
         if (res.status === 200 && res.data.length !== 0) {
           return res.data;
@@ -97,7 +97,7 @@ function PostFormModal(props) {
 
       "body": body, "keywords": keywords, "reference": reference, "community": community
     };
-    axios.post(`${base_url}/api/comment/commentMsg/edit`, data, { withCredentials: true })
+    axios.post(`${base_url}/comment/commentMsg/edit`, data, { withCredentials: true })
       .then(res => {
         if (res.data.success) {
           if (res.data.data.code === '401') return message.error(res.data.data.msg);

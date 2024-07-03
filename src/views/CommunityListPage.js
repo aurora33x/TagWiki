@@ -18,7 +18,7 @@ export default function CommunityListPage() {
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const response = await axios.get(`${base_url}/api/community/`);
+      const response = await axios.get(`${base_url}/community/`);
       setData(response.data);
       setLoading(false);
     }

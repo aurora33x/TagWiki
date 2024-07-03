@@ -20,7 +20,7 @@ const TreeDom = (props) => {
 
   const handleSubmit = () => {
     if (!name) return message.error('Please enter comment');
-    axios.post(`${base_url}/api/comment/comments`, {
+    axios.post(`${base_url}/comment/comments`, {
       body: name,
       parentId: parentID,
       rootId: props.id,

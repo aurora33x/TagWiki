@@ -125,7 +125,7 @@ function CreateCommunity() {
       "avatar": avatar
     }
     console.log(data);
-    await axios.post(`${base_url}/api/community/create`, data).then((res) => {
+    await axios.post(`${base_url}/community/create`, data).then((res) => {
       setVisible(false);
       const url = res.headers["location"];
       navigate(url, { replace: true });

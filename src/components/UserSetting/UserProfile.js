@@ -21,7 +21,7 @@ export default function Userprofile() {
   function userSetting(e) {
     const username = user.userName;
     const data = { username, email, newusername, password };
-    axios.post(`${base_url}/api/userSetting/user/userProfile", data`).then(() => {
+    axios.post(`${base_url}/userSetting/user/userProfile", data`).then(() => {
       user.setToken(Cookies.get('token'));
       console.log(data);
       e.preventDefault();

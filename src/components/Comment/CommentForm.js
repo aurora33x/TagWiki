@@ -10,7 +10,7 @@ function CommentForm(props) {
   const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
   function postComment() {
     const data = { body: commentBody, parentId: props.parentId, rootId: props.rootId, };
-    axios.post(`${base_url}/api/comment/comments`, data, { withCredentials: true })
+    axios.post(`${base_url}/comment/comments`, data, { withCredentials: true })
       .then(response => {
         if (response.data.success) {
           setCommentBody('');

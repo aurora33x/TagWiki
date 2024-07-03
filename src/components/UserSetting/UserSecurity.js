@@ -28,7 +28,7 @@ export default function Usersecurity() {
     } else {
       const username = user.userName;
       const data = { username, password, oldPassword };
-      axios.post(`${base_url}/api/userSetting/user/userSecurity`, data).then((res) => {
+      axios.post(`${base_url}/userSetting/user/userSecurity`, data).then((res) => {
         user.setToken(Cookies.get('token'));
         e.preventDefault();
         user.setToken(undefined);

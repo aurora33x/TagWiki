@@ -12,7 +12,7 @@ function Comment(props) {
 
 
   function refreshComments() {
-    axios.get(`${base_url}/api/comment/comments/root/` + props.id)
+    axios.get(`${base_url}/comment/comments/root/` + props.id)
       .then(response => {
         setComments(response.data);
       });
@@ -23,7 +23,7 @@ function Comment(props) {
     if (props.comment) {
       setComment(props.comment);
     } else {
-      axios.get(`${base_url}/api/comment/comments/` + props.id)
+      axios.get(`${base_url}/comment/comments/` + props.id)
         .then(response => {
           setComment(response.data);
         });

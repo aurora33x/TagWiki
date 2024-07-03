@@ -22,11 +22,11 @@ function SignupPage() {
     e.preventDefault();
     const data = { email, username, password };
     axios
-      .post(`${base_url}/api/auth/register`, data, {
+      .post(`${base_url}/auth/register`, data, {
         withCredentials: true,
       })
       .then(() => {
-        axios.post(`${base_url}/api/auth/login`, { username, password }).then(() => {
+        axios.post(`${base_url}/auth/login`, { username, password }).then(() => {
           user.setToken(Cookies.get('token'));
           navigate("/");
         });
