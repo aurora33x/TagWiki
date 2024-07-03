@@ -1,132 +1,27 @@
+import React, { useState } from 'react';
 import { Button, Form, Input, Menu, Modal } from 'antd';
-import 'antd/dist/antd.css';
 import axios from 'axios';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '../Avatar';
-const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
+import { getToken } from './auth'; // Function to retrieve authentication token, adjust as per your implementation
 
-const normFile = (e) => {
-  console.log('Upload event:', e);
+const base_url = process.env.REACT_APP_SERVER_BASE_URL;
 
-  if (Array.isArray(e)) {
-    return e;
-  }
-
-  return e && e.fileList;
-};
-
-
-
-function CreateCommunityForm(props) {
-  const [form] = Form.useForm();
-
-  const createCommunity = (values) =>
-    console.log('Received values of form: ', values);
-
-  return (
-    <Form
-      {...formItemLayout}
-      form={form}
-      name="Create a community"
-      onFinish={createCommunity}
-      scrollToFirstError
-      id='CreateCommunityForm'
-    >
-
-      <Form.Item
-        name="community_name"
-        label="Community Name"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your community name!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input onChange={(e) => { props.setName(e.target.value) }} />
-      </Form.Item>
-
-      <Form.Item
-        name="avatar"
-        label="Avatar (JPG/PNG) "
-        rules={[
-          {
-            required: true,
-            message: 'Please upload your community avatar',
-          },
-        ]}
-        valuePropName="filelist"
-        getValueFromEvent={normFile}
-      >
-
-        <Avatar setAvatar={props.setAvatar} />
-
-
-      </Form.Item>
-
-      <Form.Item
-        name="intro"
-        label="Brief Intro"
-        rules={[
-          {
-            required: true,
-            message: 'Please input Intro about this community',
-          },
-        ]}
-      >
-        <Input.TextArea showCount maxLength={100} onChange={(e) => { props.setIntro(e.target.value) }} />
-      </Form.Item>
-
-
-    </Form>
-  );
-}
-
-
-
-function CreateCommunity() {
+const CreateCommunity = () => {
   const [visible, setVisible] = useState(false);
-  const [name, setName] = useState("");
-  const [intro, setIntro] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [form] = Form.useForm();
   const navigate = useNavigate();
 
   const showModal = () => setVisible(true);
   const handleCancel = () => setVisible(false);
 
-  async function clinkHandler() {
-    const token = getToken(); // Adjust to get your authentication token
-
-    const data = {
-      name: name,
-      intro: intro,
-      avatar: avatar
-    };
+  const onFinish = async (values) => {
+    const token = getToken(); // Retrieve authentication token
 
     try {
-      const res = await axios.post(`${base_url}/community/create`, data, {
+      const res = await axios.post(`${base_url}/community/create`, values, {
         headers: {
-          Authorization: `Bearer ${token}` // Include the token in the Authorization header
+          Authorization: `Bearer ${token}`
         }
       });
 
@@ -137,26 +32,75 @@ function CreateCommunity() {
       console.error('Error creating community:', error);
       // Handle error gracefully, e.g., show a notification to the user
     }
-  }
+  };
 
   return (
     <>
       <Menu.Item key="5" onClick={showModal}>Create a community</Menu.Item>
       <Modal
         title="Create your own community🤩"
-        forceRender="true"
         visible={visible}
-        footer={[
-          <Button form="CreateCommunityForm" type='primary' key="submit" htmlType="submit" onClick={clinkHandler}>
-            Submit
-          </Button>
-        ]}
         onCancel={handleCancel}
+        footer={null} // Remove the footer for now
       >
-        <CreateCommunityForm setName={setName} setIntro={setIntro} setAvatar={setAvatar} />
+        <Form
+          form={form}
+          name="createCommunityForm"
+          onFinish={onFinish}
+          scrollToFirstError
+          initialValues={{ avatar: [] }} // Initial values if needed
+        >
+          <Form.Item
+            name="community_name"
+            label="Community Name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your community name!',
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="avatar"
+            label="Avatar (JPG/PNG)"
+            valuePropName="fileList"
+            getValueFromEvent={(normFile)}
+            rules={[
+              {
+                required: true,
+                message: 'Please upload your community avatar',
+              },
+            ]}
+          >
+            <Avatar setAvatar={props.setAvatar} />
+          </Form.Item>
+
+          <Form.Item
+            name="intro"
+            label="Brief Intro"
+            rules={[
+              {
+                required: true,
+                message: 'Please input Intro about this community',
+              },
+            ]}
+          >
+            <Input.TextArea showCount maxLength={100} />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );
-}
+};
 
 export default CreateCommunity;
