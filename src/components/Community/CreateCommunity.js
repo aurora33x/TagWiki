@@ -105,28 +105,31 @@ function CreateCommunityForm(props) {
 
 
 function CreateCommunity() {
-  const [visible, setVisible] = React.useState(false);
-  const [name, setName] = React.useState("");
-  const [intro, setIntro] = React.useState("");
-  const [avatar, setAvatar] = React.useState("");
+  const [visible, setVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [intro, setIntro] = useState("");
+  const [avatar, setAvatar] = useState("");
   const navigate = useNavigate();
 
-  const showModal = () => {
-    setVisible(true);
-  };
+  const showModal = () => setVisible(true);
+  const handleCancel = () => setVisible(false);
 
-  const handleCancel = () => {
-    setVisible(false);
-  };
   async function clinkHandler() {
+    const token = getToken(); // Adjust to get your authentication token
+
     const data = {
-      name,
-      intro,
-      avatar
+      name: name,
+      intro: intro,
+      avatar: avatar
     };
-  
+
     try {
-      const res = await axios.post(`${base_url}/community/create`, data);
+      const res = await axios.post(`${base_url}/community/create`, data, {
+        headers: {
+          Authorization: `Bearer ${token}` // Include the token in the Authorization header
+        }
+      });
+
       setVisible(false);
       const url = res.headers["location"];
       navigate(url, { replace: true });
@@ -135,6 +138,7 @@ function CreateCommunity() {
       // Handle error gracefully, e.g., show a notification to the user
     }
   }
+
   return (
     <>
       <Menu.Item key="5" onClick={showModal}>Create a community</Menu.Item>
@@ -153,6 +157,6 @@ function CreateCommunity() {
       </Modal>
     </>
   );
-};
+}
 
 export default CreateCommunity;
