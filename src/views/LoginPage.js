@@ -27,8 +27,9 @@ function LoginPage() {
       if (!password) return message.error('Please enter password');
   
       axios.post(`${base_url}/auth/login`, data)
-        .then(() => {
-          user.setToken(Cookies.get('token'));; // Assuming token is returned in response
+        .then((response) => {
+          console.log(response.data);
+          user.setToken(Cookies.get('token')); // Assuming token is returned in response
           navigate("/");
         })
         .catch((error) => {
