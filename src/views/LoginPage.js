@@ -40,7 +40,7 @@ function LoginPage() {
         });
     }
   }
-  }
+  
   const [isHuman, setIsHuman] = useState(false);
   function handleOnVerify() {
     setIsHuman(true);
@@ -96,5 +96,6 @@ function LoginPage() {
       </Layout>
     </>
   );
+}
 
 export default LoginPage;
