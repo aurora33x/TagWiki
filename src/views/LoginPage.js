@@ -22,17 +22,24 @@ function LoginPage() {
     const data = { username, password };
     if (!isHuman) {
       return message.error("Your interaction doesn't look like a human");
+    } else {
+      if (!username) return message.error('Please enter username');
+      if (!password) return message.error('Please enter password');
+  
+      axios.post(`${base_url}api/auth/login`, data)
+        .then((response) => {
+          user.setToken(response.data.token); // Assuming token is returned in response
+          navigate("/");
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 403) {
+            message.error('Invalid username or password');
+          } else {
+            message.error('Login failed. Please try again later.');
+          }
+        });
     }
-    else {
-      if (!username) return message.error('please enter username');
-      if (!password) return message.error('please enter password');
-      axios.post(`${base_url}api/auth/login`, data).then(() => {
-        user.setToken(Cookies.get('token'));
-        navigate("/");
-      }).catch(() => {
-        message.error('Invalid password!')
-      });
-    }
+  }
   }
   const [isHuman, setIsHuman] = useState(false);
   function handleOnVerify() {
