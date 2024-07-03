@@ -20,7 +20,7 @@ function LoginPage() {
   function login() {
     const data = { username, password };
 
-    axios.post(`${base_url}/api/auth/login`, data)
+    axios.post(`${base_url}/auth/login`, data)
       .then((response) => {
         const { token } = response.data; // Extract token from response
         user.setToken(token); // Store token in context or local storage
