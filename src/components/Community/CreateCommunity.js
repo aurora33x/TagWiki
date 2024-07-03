@@ -120,17 +120,20 @@ function CreateCommunity() {
   };
   async function clinkHandler() {
     const data = {
-      "name": name,
-      "intro": intro,
-      "avatar": avatar
-    }
-    console.log(data);
-    await axios.post(`${base_url}/community/create`, data).then((res) => {
+      name,
+      intro,
+      avatar
+    };
+  
+    try {
+      const res = await axios.post(`${base_url}/community/create`, data);
       setVisible(false);
       const url = res.headers["location"];
       navigate(url, { replace: true });
-    })
-
+    } catch (error) {
+      console.error('Error creating community:', error);
+      // Handle error gracefully, e.g., show a notification to the user
+    }
   }
   return (
     <>
