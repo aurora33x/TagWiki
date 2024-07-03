@@ -1,7 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import React from 'react';
-
+const base_url = process.env.REACT_APP_NODE_ENV === 'development' ? process.env.REACT_APP_LOCAL_BASE_URL : process.env.REACT_APP_SERVER_BASE_URL;
 function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
@@ -59,7 +59,7 @@ class Avatar extends React.Component {
         className="avatar-uploader"
         showUploadList={false}
         //using the backend post request
-        action={`/api/images/upload`}
+        action={`${base_url}/images/upload`}
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
       >
