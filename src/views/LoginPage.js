@@ -27,13 +27,14 @@ function LoginPage() {
       if (!password) return message.error('Please enter password');
   
       axios.post(`${base_url}api/auth/login`, data)
-        .then((response) => {
-          user.setToken(response.data.token); // Assuming token is returned in response
+        .then(() => {
+          user.setToken(Cookies.get('token'));; // Assuming token is returned in response
           navigate("/");
         })
         .catch((error) => {
           if (error.response && error.response.status === 403) {
             message.error('Invalid username or password');
+            console.log(error.response);
           } else {
             message.error('Login failed. Please try again later.');
           }

@@ -33,6 +33,7 @@ function CommunityPage() {
       setLoading(true);
       const response = await axios.get(`${base_url}/api/community/${communityId}`);
       setData(response.data);
+      console.log(response.data)
       setLoading(false);
     }
     fetchData();
