@@ -96,6 +96,5 @@ function LoginPage() {
       </Layout>
     </>
   );
-}
 
 export default LoginPage;
