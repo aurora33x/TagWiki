@@ -61,7 +61,7 @@ function CommunityPage() {
             xl: 80,
             xxl: 100,
           }}
-          src={data.avatar}></Avatar>
+          src={`http://tagwiki.net:3001/${data.avatar}`}></Avatar>
 
         <span className="topic">{data.name}</span>
         <span className="headerButton">
