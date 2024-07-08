@@ -1,7 +1,7 @@
 import { Button, Form, Input, Menu, Modal } from 'antd';
 import 'antd/dist/antd.css';
 import axios from 'axios';
-import React from 'react';
+import React,  { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '../Avatar';
 import UserContext from '../UserContext';
@@ -133,7 +133,6 @@ function CreateCommunity() {
       setVisible(false);
       user.setToken(Cookies.get('token'));
       console.log(data);
-      e.preventDefault();
       user.setToken(undefined);
       sessionStorage.clear();
       Cookies.remove('token');
