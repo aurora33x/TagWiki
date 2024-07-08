@@ -26,9 +26,6 @@ export default function AboutPage() {
       <img src="../WikiLogo.png" className="about-img" />
       <h1>About Us </h1>
       <h3>Team Ruby Rattlesnakes</h3>
-      <h3>
-        Team Members: Mingxue Gong, Yanran Xu, Zijia Liu, Yilun Li, Ziqi Yang
-      </h3>
       <p>
         Hello there! We want to build up a Wikipedia social platform where you
         can find like-minded people
