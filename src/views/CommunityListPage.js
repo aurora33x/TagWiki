@@ -86,7 +86,7 @@ export default function CommunityListPage() {
                             xxl: 40,
                           }}
                           alt="Avatar"
-                          src={`${base_url}/images/${item.avatar}`}
+                          src={`http://tagwiki.net:3001/${item.avatar}`}
 
                         />
                       </Card>
