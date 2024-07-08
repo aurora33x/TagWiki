@@ -4,6 +4,8 @@ import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '../Avatar';
+import UserContext from '../UserContext';
+import Cookies from 'js-cookie';
 
 const formItemLayout = {
   labelCol: {
@@ -110,6 +112,7 @@ function CreateCommunity() {
   const [intro, setIntro] = React.useState("");
   const [avatar, setAvatar] = React.useState("");
   const navigate = useNavigate();
+  const user = useContext(UserContext);
 
   const showModal = () => {
     setVisible(true);
@@ -125,8 +128,15 @@ function CreateCommunity() {
       "avatar": avatar
     }
     console.log(data);
+
     await axios.post(`${base_url}/community/create`, data).then((res) => {
       setVisible(false);
+      user.setToken(Cookies.get('token'));
+      console.log(data);
+      e.preventDefault();
+      user.setToken(undefined);
+      sessionStorage.clear();
+      Cookies.remove('token');
       const url = res.headers["location"];
       navigate(url, { replace: true });
     })
